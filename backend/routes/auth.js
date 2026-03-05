@@ -1,0 +1,72 @@
+const express = require('express');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const rateLimit = require('express-rate-limit');
+const Admin = require('../models/Admin');
+const authValidator = require('../validators/authValidator');
+const isProduction = process.env.NODE_ENV === 'production';
+
+const router = express.Router();
+
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 5,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: {
+        success: false,
+        message: 'Too many login attempts. Try again later.'
+    }
+});
+
+router.post('/login', loginLimiter, async (req, res, next) => {
+    try {
+        const { error } = authValidator.validate(req.body);
+        if (error) {
+            return res.status(400).json({ success: false, message: error.details[0].message });
+        }
+        const { username, password } = req.body || {};
+        if (!username || !password) {
+            return res.status(400).json({ success: false, message: 'Username and password required' });
+        }
+
+        const admin = await Admin.findOne({ username: String(username) }).lean();
+        if (!admin) {
+            return res.status(401).json({ success: false, message: 'Invalid credentials' });
+        }
+
+        const match = await bcrypt.compare(String(password), admin.password);
+        if (!match) {
+            return res.status(401).json({ success: false, message: 'Invalid credentials' });
+        }
+
+        const token = jwt.sign(
+            {
+                id: admin._id,
+                username: admin.username,
+                role: admin.role
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
+
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: isProduction,
+            sameSite: isProduction ? 'strict' : 'lax',
+            maxAge: 60 * 60 * 1000
+        });
+
+        return res.json({ success: true, message: 'Login successful' });
+    } catch (err) {
+        err.statusCode = 500;
+        return next(err);
+    }
+});
+
+router.post('/logout', (req, res) => {
+    res.clearCookie('token');
+    return res.json({ success: true, message: 'Logged out' });
+});
+
+module.exports = router;
