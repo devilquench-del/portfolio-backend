@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin-style.css" />
+    <link rel="stylesheet" href="animations.css" />
+</head>
+
+<body>
+    <!-- LOGIN PAGE -->
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <button id="closeLoginBtn" class="close-login" aria-label="Close login">✕</button>
+            <h1>Admin Login</h1>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="username" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn-login">Login</button>
+            </form>
+            <p class="demo-hint">Demo admin username: <strong>admin</strong></p>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD -->
+    <div id="adminDashboard" class="admin-dashboard hidden">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>ADMIN</h2>
+                <p>Control Panel</p>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-item active" data-section="dashboard">
+                    <span>📊</span> Dashboard
+                </a>
+                <a href="#" class="menu-item" data-section="skills">
+                    <span>⭐</span> Skills
+                </a>
+                <a href="#" class="menu-item" data-section="projects">
+                    <span>💼</span> Projects
+                </a>
+                <a href="#" class="menu-item" data-section="contact">
+                    <span>📧</span> Contact Info
+                </a>
+                <a href="#" class="menu-item" data-section="settings">
+                    <span>⚙️</span> Settings
+                </a>
+            </nav>
+            <button id="logoutBtn" class="btn-logout">Logout</button>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="admin-content">
+            <!-- DASHBOARD SECTION -->
+            <section id="dashboard" class="content-section active">
+                <h2>Dashboard</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Skills</h3>
+                        <p class="stat-number">6</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Projects</h3>
+                        <p class="stat-number">3</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Last Updated</h3>
+                        <p class="stat-text" id="lastUpdated">Today</p>
+                    </div>
+                </div>
+                <div class="recent-activity">
+                    <h3>Recent Activity</h3>
+                    <ul id="activityLog">
+                        <li>Admin panel accessed</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SKILLS SECTION -->
+            <section id="skills" class="content-section">
+                <h2>Manage Skills</h2>
+                <div class="form-container">
+                    <div class="form-group">
+                        <label>New Skill</label>
+                        <input type="text" id="skillInput" placeholder="Enter skill name">
+                    </div>
+                    <button class="btn-add" onclick="addSkill()">+ Add Skill</button>
+                </div>
+                <div class="items-list">
+                    <h3>Current Skills</h3>
+                    <ul id="skillsList"></ul>
+                </div>
+            </section>
+
+            <!-- PROJECTS SECTION -->
+            <section id="projects" class="content-section">
+                <h2>Manage Projects</h2>
+                <div class="form-container">
+                    <div class="form-group">
+                        <label>Project Title</label>
+                        <input type="text" id="projectTitle" placeholder="Enter project title">
+                    </div>
+                    <div class="form-group">
+                        <label>Project Description</label>
+                        <textarea id="projectDesc" placeholder="Enter description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Technologies</label>
+                        <input type="text" id="projectTech" placeholder="e.g., HTML • CSS • JavaScript">
+                    </div>
+                    <div class="form-group">
+                        <label>Project Image</label>
+                        <input type="file" id="projectImage" accept="image/png,image/jpeg">
+                    </div>
+                    <button class="btn-add" onclick="addProject()">+ Add Project</button>
+                </div>
+                <div class="items-list">
+                    <h3>Current Projects</h3>
+                    <ul id="projectsList"></ul>
+                </div>
+            </section>
+
+            <!-- CONTACT SECTION -->
+            <section id="contact" class="content-section">
+                <h2>Contact Information</h2>
+                <div class="form-container">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="contactEmail" placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="text" id="contactPhone" placeholder="+1 (555) 123-4567">
+                    </div>
+                    <button class="btn-add" onclick="updateContact()">Update Contact</button>
+                </div>
+                <div class="contact-display">
+                    <h3>Current Contact</h3>
+                    <p>Email: <strong id="displayEmail">manoj@example.com</strong></p>
+                    <p>Phone: <strong id="displayPhone">Not set</strong></p>
+                </div>
+            </section>
+
+            <!-- SETTINGS SECTION -->
+            <section id="settings" class="content-section">
+                <h2>Settings</h2>
+                <div class="settings-group">
+                    <h3>Portfolio Title</h3>
+                    <div class="form-group">
+                        <input type="text" id="portfolioTitle" placeholder="Portfolio Title">
+                        <button class="btn-add" onclick="updatePortfolioTitle()">Save</button>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <h3>Theme</h3>
+                    <div class="form-group">
+                        <select id="themeSelect">
+                            <option value="dark">Dark Mode</option>
+                            <option value="light">Light Mode</option>
+                        </select>
+                        <button class="btn-add" onclick="changeTheme()">Apply Theme</button>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <h3>Danger Zone</h3>
+                    <button class="btn-danger" onclick="resetData()">Reset All Data</button>
+                </div>
+                <div class="settings-group">
+                    <h3>Google Sign-In (Client ID)</h3>
+                    <div class="form-group">
+                        <input type="text" id="googleClientIdInput" placeholder="Enter Google Client ID (optional)">
+                        <button class="btn-add" onclick="saveGoogleClientId()">Save Client ID</button>
+                    </div>
+                    <p id="gsiAdminStatus" class="small-text">Current: <em id="gsiCurrent">Not configured</em></p>
+                </div>
+                <div class="settings-group">
+                    <h3>Reviews Moderation</h3>
+                    <div class="items-list">
+                        <h4>Submitted Reviews</h4>
+                        <ul id="adminReviewsList"></ul>
+                    </div>
+                    <button class="btn-add" onclick="loadAdminReviews()">Refresh Reviews</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="admin-script.js"></script>
+    <script src="animations.js"></script>
+</body>
+</html>
+

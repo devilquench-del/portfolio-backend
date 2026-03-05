@@ -166,7 +166,7 @@ router.post('/:id/upload', requireAuth, (req, res, next) => {
             });
 
             try {
-                await Project.findByIdAndUpdate(
+                const updatedProject = await Project.findByIdAndUpdate(
                     id,
                     {
                         image: uploadResult.secure_url,
@@ -174,6 +174,12 @@ router.post('/:id/upload', requireAuth, (req, res, next) => {
                     },
                     { new: true, runValidators: true }
                 ).lean();
+                if (!updatedProject) {
+                    return res.status(404).json({
+                        success: false,
+                        message: 'Project not found'
+                    });
+                }
             } catch (dbUpdateErr) {
                 try {
                     await cloudinary.uploader.destroy(uploadResult.public_id);

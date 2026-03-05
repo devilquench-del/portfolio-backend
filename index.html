@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio | Manoj</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="animations.css" />
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <h1 class="logo">MANOJ<span>👑</span></h1>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="admin.html" class="admin-link">Admin</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <div class="hero-decoration hero-decoration-left"></div>
+        <div class="hero-content">
+            <img src="assets/me.jpg" alt="Manoj" class="hero-photo">
+            <h2>Hello, I'm</h2>
+            <h1 class="name">Manoj</h1>
+            <p class="tagline">A Passionate Developer Building with AI</p>
+
+            <button class="gold-btn" onclick="scrollToSection('projects')">
+                Explore My Work
+            </button>
+        </div>
+        <div class="hero-decoration hero-decoration-right"></div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills" class="skills">
+        <h2 class="section-title">My Skills</h2>
+        <div class="skills-container" id="homeSkillsContainer">
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+   <section id="projects" class="projects">
+  <h2 class="section-title">PROJECTS</h2>
+
+  <div class="project-container" id="homeProjectsContainer">
+  </div>
+</section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="contact">
+        <h2 class="section-title">Contact Me</h2>
+        <p>If you want a website or AI project, let's connect!</p>
+
+        <div class="contact-btn-wrapper">
+            <a href="mailto:manoj@example.com" class="gold-btn">Email Me</a>
+        </div>
+    </section>
+
+    <!-- REVIEWS & RATINGS -->
+    <section id="reviews" class="reviews">
+        <h2 class="section-title">Reviews & Ratings</h2>
+        <div id="averageRating" class="average-rating" style="text-align:center;margin-bottom:18px;color:#f5d572;">No ratings yet</div>
+        <div class="reviews-container">
+            <div class="review-form">
+                <div id="gsiButtonWrapper"></div>
+                <div id="signedInUser" style="display:none; margin-bottom:12px;"></div>
+                <label for="rating">Your rating</label>
+                <div class="star-input" id="starInput" role="radiogroup" aria-label="Rating">
+                    <button data-value="1" aria-label="1 star">★</button>
+                    <button data-value="2" aria-label="2 stars">★</button>
+                    <button data-value="3" aria-label="3 stars">★</button>
+                    <button data-value="4" aria-label="4 stars">★</button>
+                    <button data-value="5" aria-label="5 stars">★</button>
+                </div>
+                <textarea id="reviewText" placeholder="Share your thoughts..." rows="3"></textarea>
+                <button id="submitReview" class="gold-btn">Submit Review</button>
+            </div>
+
+            <div class="reviews-list" id="reviewsList">
+                <!-- reviews rendered here -->
+            </div>
+        </div>
+    </section>
+    <script src="script.js"></script>
+    <script src="animations.js"></script>
+</body>
+</html>

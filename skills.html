@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skills | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="animations.css" />
+    <style>
+        .skills-page {
+            min-height: 100vh;
+            padding: 120px 50px 80px;
+            background: #0a0a0a;
+        }
+
+        .skills-page h1 {
+            text-align: center;
+            font-size: 48px;
+            color: #d4af37;
+            margin-bottom: 50px;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skill-item {
+            background: #111;
+            border: 2px solid #d4af37;
+            padding: 40px 25px;
+            text-align: center;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(212, 175, 55, 0.2);
+            transition: 0.5s;
+        }
+
+        .skill-item:hover::before {
+            left: 100%;
+        }
+
+        .skill-item:hover {
+            background: #d4af37;
+            color: #0a0a0a;
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .skill-item span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .no-skills {
+            text-align: center;
+            color: #888;
+            font-size: 18px;
+            padding: 50px;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .skills-page {
+                padding: 100px 30px 60px;
+            }
+
+            .skills-page h1 {
+                font-size: 36px;
+                margin-bottom: 30px;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 20px;
+            }
+
+            .skill-item {
+                padding: 30px 15px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .skills-page {
+                padding: 80px 20px 40px;
+            }
+
+            .skills-page h1 {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .skill-item {
+                padding: 20px 10px;
+                font-size: 13px;
+            }
+
+            .no-skills {
+                font-size: 14px;
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <h1 class="logo">MANOJ<span>👑</span></h1>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="admin.html" class="admin-link">Admin</a></li>
+        </ul>
+    </nav>
+
+    <!-- SKILLS PAGE -->
+    <div class="skills-page">
+        <h1>My Skills</h1>
+        <div class="skills-grid" id="skillsGrid">
+            <!-- Skills will be loaded from backend -->
+        </div>
+    </div>
+    <script>
+        function renderEmptySkills(message) {
+            const skillsGrid = document.getElementById('skillsGrid');
+            skillsGrid.textContent = '';
+            const empty = document.createElement('div');
+            empty.className = 'no-skills';
+            empty.textContent = message;
+            skillsGrid.appendChild(empty);
+        }
+
+        function renderSkills(skills) {
+            const skillsGrid = document.getElementById('skillsGrid');
+            skillsGrid.textContent = '';
+            skills.forEach((skill) => {
+                const skillItem = document.createElement('div');
+                skillItem.className = 'skill-item';
+                const label = document.createElement('span');
+                label.textContent = skill;
+                skillItem.appendChild(label);
+                skillsGrid.appendChild(skillItem);
+            });
+        }
+
+        async function loadSkills() {
+            try {
+                const res = await fetch('https://portfolio-backend-4b4m.onrender.com/api/skills', { credentials: 'include' });
+                const payload = await res.json();
+                if (!payload || payload.success !== true || !Array.isArray(payload.data)) {
+                    throw new Error('Invalid skills response');
+                }
+
+                const skills = payload.data
+                    .map((item) => String(item && item.skill ? item.skill : '').trim())
+                    .filter((skill) => skill.length > 0);
+
+                if (skills.length === 0) {
+                    renderEmptySkills('No skills added yet. Visit the admin panel to add skills.');
+                    return;
+                }
+
+                renderSkills(skills);
+            } catch (err) {
+                if (typeof showToast === 'function') {
+                    showToast('Failed to load skills from backend', 'error');
+                } else {
+                    console.error('Failed to load skills from backend', err);
+                }
+                renderEmptySkills('No skills added yet. Visit the admin panel to add skills.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadSkills);
+    </script>
+    <script src="script.js"></script>
+    <script src="animations.js"></script>
+</body>
+
+</html>

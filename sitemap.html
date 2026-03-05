@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sitemap | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: white;
+            padding: 50px;
+        }
+
+        .sitemap-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #d4af37;
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 42px;
+        }
+
+        .sitemap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .sitemap-section {
+            background: #111;
+            border: 2px solid #d4af37;
+            border-radius: 12px;
+            padding: 30px;
+            transition: 0.3s;
+        }
+
+        .sitemap-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .sitemap-section h2 {
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .sitemap-section ul {
+            list-style: none;
+        }
+
+        .sitemap-section li {
+            margin-bottom: 12px;
+        }
+
+        .sitemap-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sitemap-section a:hover {
+            color: #d4af37;
+            padding-left: 5px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 30px;
+            padding: 12px 25px;
+            background: #d4af37;
+            color: #0a0a0a;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .back-button:hover {
+            background: #f5d572;
+            transform: scale(1.05);
+        }
+
+        .description {
+            color: #888;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="index.html" class="back-button">← Back to Home</a>
+
+    <div class="sitemap-container">
+        <h1>Website Sitemap</h1>
+
+        <div class="sitemap-grid">
+            <!-- Main Pages -->
+            <div class="sitemap-section">
+                <h2>📄 Main Pages</h2>
+                <ul>
+                    <li>
+                        <a href="index.html">
+                            <span>🏠</span> Home
+                        </a>
+                        <div class="description">Main landing page with hero section</div>
+                    </li>
+                    <li>
+                        <a href="about.html">
+                            <span>👤</span> About
+                        </a>
+                        <div class="description">About me and my background</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Portfolio Pages -->
+            <div class="sitemap-section">
+                <h2>💼 Portfolio</h2>
+                <ul>
+                    <li>
+                        <a href="skills.html">
+                            <span>⭐</span> Skills
+                        </a>
+                        <div class="description">Technical skills and expertise</div>
+                    </li>
+                    <li>
+                        <a href="projects.html">
+                            <span>🎨</span> Projects
+                        </a>
+                        <div class="description">Detailed project portfolio</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="sitemap-section">
+                <h2>📞 Contact</h2>
+                <ul>
+                    <li>
+                        <a href="contact.html">
+                            <span>📧</span> Contact Me
+                        </a>
+                        <div class="description">Get in touch and send messages</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Admin -->
+            <div class="sitemap-section">
+                <h2>🔐 Admin</h2>
+                <ul>
+                    <li>
+                        <a href="admin.html">
+                            <span>⚙️</span> Admin Panel
+                        </a>
+                        <div class="description">Login: admin | Pass: 1234</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Resources -->
+            <div class="sitemap-section">
+                <h2>📚 Resources</h2>
+                <ul>
+                    <li>
+                        <a href="README.md">
+                            <span>📖</span> Documentation
+                        </a>
+                        <div class="description">Complete project documentation</div>
+                    </li>
+                    <li>
+                        <a href="sitemap.html">
+                            <span>🗺️</span> Sitemap
+                        </a>
+                        <div class="description">Website navigation guide</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="sitemap-section">
+                <h2>🔗 Quick Links</h2>
+                <ul>
+                    <li>
+                        <a href="index.html#skills">
+                            <span>⬇️</span> Home Skills Section
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html#projects">
+                            <span>⬇️</span> Home Projects Section
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html#contact">
+                            <span>⬇️</span> Home Contact Section
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div style="margin-top: 50px; padding: 30px; background: #111; border: 2px solid #d4af37; border-radius: 12px; text-align: center;">
+            <h3 style="color: #d4af37; margin-bottom: 15px;">Website Statistics</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px;">
+                <div>
+                    <p style="color: #d4af37; font-size: 24px; font-weight: 900;">6</p>
+                    <p style="color: #888;">Pages</p>
+                </div>
+                <div>
+                    <p style="color: #d4af37; font-size: 24px; font-weight: 900;">1</p>
+                    <p style="color: #888;">Admin Panel</p>
+                </div>
+                <div>
+                    <p style="color: #d4af37; font-size: 24px; font-weight: 900;">100%</p>
+                    <p style="color: #888;">Responsive</p>
+                </div>
+                <div>
+                    <p style="color: #d4af37; font-size: 24px; font-weight: 900;">5+</p>
+                    <p style="color: #888;">Animations</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
