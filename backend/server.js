@@ -30,7 +30,7 @@ app.use(
 );
 app.use(cookieParser());
 app.use(cors({
-  origin: isProduction ? 'https://yourdomain.com' : true,
+  origin: isProduction ? process.env.FRONTEND_URL : true,
   credentials: true
 }));
 
