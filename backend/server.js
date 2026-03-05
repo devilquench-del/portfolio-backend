@@ -49,7 +49,11 @@ const globalLimiter = rateLimit({
 app.use(globalLimiter);
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
-app.use(mongoSanitize());
+app.use(
+  mongoSanitize({
+    replaceWith: '_'
+  })
+);
 app.use(xss());
 app.use(compression());
 
