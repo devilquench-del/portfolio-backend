@@ -6,7 +6,6 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const compression = require('compression');
 const morgan = require('morgan');
@@ -49,12 +48,6 @@ const globalLimiter = rateLimit({
 app.use(globalLimiter);
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
-app.use(
-  mongoSanitize({
-    replaceWith: '_',
-    allowDots: true
-  })
-);
 app.use(xss());
 app.use(compression());
 
