@@ -52,7 +52,7 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(
   mongoSanitize({
     replaceWith: '_',
-    sanitizeQuery: false
+    allowDots: true
   })
 );
 app.use(xss());
