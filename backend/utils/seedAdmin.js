@@ -4,20 +4,34 @@ const logger = require('./logger');
 
 async function seedAdmin() {
     try {
-        const existing = await Admin.findOne({}).lean();
-        if (existing) {
-            logger.info('Admin already exists');
+        const adminUsername = process.env.ADMIN_EMAIL || 'manojackiephilips';
+        const adminPassword = process.env.ADMIN_PASSWORD || '562125';
+        const hashedPassword = await bcrypt.hash(adminPassword, 10);
+
+        const existingByUsername = await Admin.findOne({ username: adminUsername });
+        if (existingByUsername) {
+            const passwordMatches = await bcrypt.compare(adminPassword, existingByUsername.password);
+            if (!passwordMatches) {
+                existingByUsername.password = hashedPassword;
+                await existingByUsername.save();
+                logger.info('Admin password updated from environment');
+            } else {
+                logger.info('Admin already exists with configured credentials');
+            }
             return;
         }
 
-        const adminEmail = process.env.ADMIN_EMAIL || 'admin';
-        const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
-        const hashedPassword = await bcrypt.hash(adminPassword, 10);
-        await Admin.create({
-            username: adminEmail,
-            password: hashedPassword
-        });
-        logger.info('Default admin created');
+        const existingAny = await Admin.findOne({});
+        if (existingAny) {
+            existingAny.username = adminUsername;
+            existingAny.password = hashedPassword;
+            await existingAny.save();
+            logger.info('Existing admin credentials updated from environment');
+            return;
+        }
+
+        await Admin.create({ username: adminUsername, password: hashedPassword });
+        logger.info('Default admin created from environment');
     } catch (err) {
         logger.error('Failed to seed admin:', err.message || err);
     }

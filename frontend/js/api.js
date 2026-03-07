@@ -1,4 +1,17 @@
-const API_ORIGIN = 'https://portfolio-backend-4b4m.onrender.com';
+const API_ORIGIN = resolveApiOrigin();
+
+function resolveApiOrigin() {
+    if (typeof window === 'undefined') {
+        return 'https://portfolio-backend-4b4m.onrender.com';
+    }
+    try {
+        const override = localStorage.getItem('apiOrigin');
+        if (override && typeof override === 'string') {
+            return override.replace(/\/+$/, '');
+        }
+    } catch (err) {}
+    return 'https://portfolio-backend-4b4m.onrender.com';
+}
 
 async function getData(endpoint) {
     try {

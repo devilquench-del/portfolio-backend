@@ -50,10 +50,11 @@ router.post('/login', loginLimiter, async (req, res, next) => {
             { expiresIn: '1h' }
         );
 
+        // Use cross-site compatible cookie settings for separated frontend/backend deployments.
         res.cookie('token', token, {
             httpOnly: true,
             secure: isProduction,
-            sameSite: isProduction ? 'strict' : 'lax',
+            sameSite: isProduction ? 'none' : 'lax',
             maxAge: 60 * 60 * 1000
         });
 
@@ -65,7 +66,11 @@ router.post('/login', loginLimiter, async (req, res, next) => {
 });
 
 router.post('/logout', (req, res) => {
-    res.clearCookie('token');
+    res.clearCookie('token', {
+        httpOnly: true,
+        secure: isProduction,
+        sameSite: isProduction ? 'none' : 'lax'
+    });
     return res.json({ success: true, message: 'Logged out' });
 });
 

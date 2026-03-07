@@ -1,6 +1,6 @@
 // ==================== AUTHENTICATION ====================
 const ADMIN_AUTH_SESSION_KEY = 'adminSession';
-const API_ORIGIN = 'https://portfolio-backend-4b4m.onrender.com';
+const API_ORIGIN = resolveApiOrigin();
 const APP_LOCAL_STORAGE_KEYS = [
     'portfolioData',
     'projectReviews',
@@ -9,6 +9,19 @@ const APP_LOCAL_STORAGE_KEYS = [
     'theme',
     'googleClientId'
 ];
+
+function resolveApiOrigin() {
+    if (typeof window === 'undefined') {
+        return 'https://portfolio-backend-4b4m.onrender.com';
+    }
+    try {
+        const override = localStorage.getItem('apiOrigin');
+        if (override && typeof override === 'string') {
+            return override.replace(/\/+$/, '');
+        }
+    } catch (err) {}
+    return 'https://portfolio-backend-4b4m.onrender.com';
+}
 
 function isAdminAuthenticated() {
     return sessionStorage.getItem(ADMIN_AUTH_SESSION_KEY) === 'true';

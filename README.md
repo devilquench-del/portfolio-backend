@@ -50,8 +50,8 @@ PORTFOLIO/
 
 ## 🔐 Admin Credentials
 
-- **Username:** `admin`
-- **Password:** `1234`
+- **Username:** `manojackiephilips`
+- **Password:** `562125`
 
 ## 🚀 How to Use
 
@@ -63,7 +63,7 @@ PORTFOLIO/
 
 ### For Admin
 1. Click the "Admin" button in the navbar
-2. Log in with `admin` / `1234`
+2. Log in with `manojackiephilips` / `562125`
 3. Use the dashboard to:
    - Add new skills
    - Create projects

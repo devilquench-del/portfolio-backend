@@ -45,8 +45,8 @@ Your portfolio now has **7 complete pages**:
 
 #### 6. **admin.html** - Admin Panel 🔐
 - **Login System**
-  - Username: `admin`
-  - Password: `1234`
+  - Username: `manojackiephilips`
+  - Password: `562125`
   
 - **Dashboard Section**
   - Statistics overview
@@ -140,7 +140,7 @@ Admin Panel → localStorage → All Pages → Display
 
 ### For Admins
 1. Click "Admin" in navbar
-2. Login with `admin` / `1234`
+2. Login with `manojackiephilips` / `562125`
 3. Manage all portfolio content
 4. Track changes in activity log
 5. Update settings as needed
@@ -232,7 +232,7 @@ MANOJ 👑
 
 - [ ] All pages load without errors
 - [ ] Navigation works between all pages
-- [ ] Admin login works (admin/1234)
+- [ ] Admin login works (manojackiephilips/562125)
 - [ ] Add skill functionality works
 - [ ] Add project functionality works
 - [ ] Contact form submission works
