@@ -6,7 +6,6 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const xss = require('xss-clean');
 const compression = require('compression');
 const morgan = require('morgan');
 const logger = require('./utils/logger');
@@ -18,21 +17,20 @@ connectDB();
 seedAdmin();
 
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 5000;
 const skillsRouter = require('./routes/skills');
 const projectsRouter = require('./routes/projects');
 const reviewsRouter = require('./routes/reviews');
 
-app.use(
-  helmet({
-    contentSecurityPolicy: isProduction
-  })
-);
-app.use(cookieParser());
+app.use(helmet());
 app.use(cors({
   origin: isProduction ? process.env.FRONTEND_URL : true,
   credentials: true
 }));
+app.use(cookieParser());
+app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -46,9 +44,6 @@ const globalLimiter = rateLimit({
 });
 
 app.use(globalLimiter);
-app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
-app.use(xss());
 app.use(compression());
 
 app.use(
