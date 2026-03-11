@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const rateLimit = require('express-rate-limit');
 const Admin = require('../models/Admin');
 const authValidator = require('../validators/authValidator');
+const logger = require('../utils/logger');
 const isProduction = process.env.NODE_ENV === 'production';
 
 const router = express.Router();
@@ -25,17 +26,22 @@ router.post('/login', loginLimiter, async (req, res, next) => {
         if (error) {
             return res.status(400).json({ success: false, message: error.details[0].message });
         }
-        const { username, password } = req.body || {};
+        const username = typeof req.body?.username === 'string' ? req.body.username.trim() : '';
+        const password = typeof req.body?.password === 'string' ? req.body.password : '';
         if (!username || !password) {
             return res.status(400).json({ success: false, message: 'Username and password required' });
         }
+        if (!process.env.JWT_SECRET) {
+            logger.error('JWT_SECRET is not defined. Login cannot issue tokens.');
+            return res.status(500).json({ success: false, message: 'Server error' });
+        }
 
-        const admin = await Admin.findOne({ username: String(username) }).lean();
+        const admin = await Admin.findOne({ username }).lean();
         if (!admin) {
             return res.status(401).json({ success: false, message: 'Invalid credentials' });
         }
 
-        const match = await bcrypt.compare(String(password), admin.password);
+        const match = await bcrypt.compare(password, admin.password);
         if (!match) {
             return res.status(401).json({ success: false, message: 'Invalid credentials' });
         }
