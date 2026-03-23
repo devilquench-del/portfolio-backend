@@ -10,7 +10,7 @@ function resolveApiOrigin() {
             return override.replace(/\/+$/, '');
         }
     } catch (err) {}
-    return 'https://portfolio-backend-4b4m.onrender.com';
+    return 'http://localhost:5000';
 }
 
 async function getData(endpoint) {

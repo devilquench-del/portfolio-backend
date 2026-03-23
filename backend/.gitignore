@@ -5,4 +5,7 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+nodemon-*.log
 .DS_Store
+db.json
+.npm-cache

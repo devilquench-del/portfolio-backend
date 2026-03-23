@@ -50,8 +50,7 @@ PORTFOLIO/
 
 ## 🔐 Admin Credentials
 
-- **Username:** `manojackiephilips`
-- **Password:** `562125`
+Credentials are configured via environment variables (`ADMIN_USERNAME` and `ADMIN_PASSWORD`) in `backend/.env`. Do **not** commit credentials to version control.
 
 ## 🚀 How to Use
 
@@ -63,7 +62,7 @@ PORTFOLIO/
 
 ### For Admin
 1. Click the "Admin" button in the navbar
-2. Log in with `manojackiephilips` / `562125`
+2. Log in with the credentials set in your `backend/.env` file
 3. Use the dashboard to:
    - Add new skills
    - Create projects
@@ -149,11 +148,10 @@ The admin panel tracks:
 
 ## 🔒 Security Notes
 
-- This is a frontend-only solution
-- Admin credentials are hardcoded (for demo purposes)
-- For production, implement backend authentication
-- Use secure APIs for storing sensitive data
+- Admin credentials are set via `ADMIN_USERNAME` and `ADMIN_PASSWORD` environment variables
 - Never commit real credentials to version control
+- Use a strong, random `JWT_SECRET` (minimum 32 characters) in production
+- Use secure APIs for storing sensitive data
 
 ## 🚀 Deployment
 

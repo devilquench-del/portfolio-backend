@@ -45,8 +45,7 @@ Your portfolio now has **7 complete pages**:
 
 #### 6. **admin.html** - Admin Panel 🔐
 - **Login System**
-  - Username: `manojackiephilips`
-  - Password: `562125`
+  - Credentials configured via `ADMIN_USERNAME` / `ADMIN_PASSWORD` in `backend/.env`
   
 - **Dashboard Section**
   - Statistics overview
@@ -140,7 +139,7 @@ Admin Panel → localStorage → All Pages → Display
 
 ### For Admins
 1. Click "Admin" in navbar
-2. Login with `manojackiephilips` / `562125`
+2. Login with credentials from your `backend/.env` file
 3. Manage all portfolio content
 4. Track changes in activity log
 5. Update settings as needed
@@ -232,7 +231,7 @@ MANOJ 👑
 
 - [ ] All pages load without errors
 - [ ] Navigation works between all pages
-- [ ] Admin login works (manojackiephilips/562125)
+- [ ] Admin login works (credentials from .env)
 - [ ] Add skill functionality works
 - [ ] Add project functionality works
 - [ ] Contact form submission works

@@ -62,11 +62,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', requireAuth, async (req, res, next) => {
     try {
-        const payload = { ...(req.body || {}) };
-        if (payload.description === undefined && payload.desc !== undefined) {
-            payload.description = payload.desc;
-        }
-        const { error } = projectValidator.validate(payload);
+        const { error } = projectValidator.validate(req.body);
         if (error) {
             return res.status(400).json({ success: false, message: error.details[0].message });
         }
@@ -95,11 +91,7 @@ router.post('/', requireAuth, async (req, res, next) => {
 
 router.put('/:id', requireAuth, async (req, res, next) => {
     try {
-        const payload = { ...(req.body || {}) };
-        if (payload.description === undefined && payload.desc !== undefined) {
-            payload.description = payload.desc;
-        }
-        const { error } = projectValidator.validate(payload);
+        const { error } = projectValidator.validate(req.body);
         if (error) {
             return res.status(400).json({ success: false, message: error.details[0].message });
         }

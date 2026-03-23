@@ -4,8 +4,13 @@ const logger = require('./logger');
 
 async function seedAdmin() {
     try {
-        const adminUsername = process.env.ADMIN_EMAIL || 'manojackiephilips';
-        const adminPassword = process.env.ADMIN_PASSWORD || '562125';
+        const adminUsername = process.env.ADMIN_USERNAME;
+        const adminPassword = process.env.ADMIN_PASSWORD;
+
+        if (!adminUsername || !adminPassword) {
+            logger.warn('ADMIN_USERNAME or ADMIN_PASSWORD not set in environment. Skipping admin seed.');
+            return;
+        }
         const hashedPassword = await bcrypt.hash(adminPassword, 10);
 
         const existingByUsername = await Admin.findOne({ username: adminUsername });
